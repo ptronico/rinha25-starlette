@@ -1,0 +1,17 @@
+[project]
+name = "rinha25-starlette"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "h2>=4.2.0",
+    "httptools>=0.6.4",
+    "httpx>=0.28.1",
+    "orjson>=3.11.1",
+    "py-spy>=0.4.1",
+    "sortedcontainers>=2.4.0",
+    "starlette>=0.47.2",
+    "uvicorn>=0.35.0",
+    "uvloop>=0.21.0",
+]
