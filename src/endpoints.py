@@ -1,12 +1,14 @@
+import asyncio
+
 from starlette.responses import Response
 
 from .databases import TransactionsDB
 from .responses import OrjsonResponse
-from .tasks import get_summary
+from .tasks import get_summary, process_payment
 
 
 async def pay(request):
-    await request.app.state.queue.push("m")
+    asyncio.create_task(process_payment(request.app, "m"))
     return Response(status_code=202)
 
 
@@ -16,16 +18,6 @@ async def summary(request):
     param_to = request.query_params["to"]
     db: TransactionsDB = request.app.state.db
 
-    # if "origin" not in request.query_params:
-    #     other_instance = "api1" if request.app.state.hostname == "api2" else "api2"
-    #     url = (
-    #         f"http://{other_instance}:8000{request.url.path}"
-    #         f"?from={param_from}&to={param_to}&origin={request.app.state.hostname}"
-    #     )
-    #     try:
-    #         response = (await request.app.state.other_instance_client.get(url)).json()
-    #     except Exception as e:
-    #         logging.exception(e)
     if "origin" not in request.query_params:
         response = await get_summary(app=request.app, start_date=param_from, end_date=param_to)
 

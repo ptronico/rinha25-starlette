@@ -9,6 +9,7 @@ dependencies = [
     "httptools>=0.6.4",
     "httpx>=0.28.1",
     "orjson>=3.11.1",
+    "psutil>=7.0.0",
     "py-spy>=0.4.1",
     "sortedcontainers>=2.4.0",
     "starlette>=0.47.2",
